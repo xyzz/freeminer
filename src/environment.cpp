@@ -1168,11 +1168,14 @@ void ServerEnvironment::clearAllObjects()
 void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 {
 	DSTACK(__FUNCTION_NAME);
+	TimeTaker tt_environment("Environment step");
 
-	//TimeTaker timer("ServerEnv step");
 
 	/* Step time of day */
-	stepTimeOfDay(dtime);
+	{
+		TimeTaker tt_time_of_day("Environment: Step time of day");
+		stepTimeOfDay(dtime);
+	}
 
 	// Update this one
 	// NOTE: This is kind of funny on a singleplayer game, but doesn't
@@ -1189,13 +1192,12 @@ void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 		m_game_time_fraction_counter -= (float)inc_i;
 	}
 
-	TimeTaker timer_step("Environment step");
-
 	/*
 		Handle players
 	*/
 	{
-		//ScopeProfiler sp(g_profiler, "SEnv: handle players avg", SPT_AVG);
+		TimeTaker tt_handle_players("Environment: handle players");
+
 		for(std::list<Player*>::iterator i = m_players.begin();
 				i != m_players.end(); ++i)
 		{
@@ -1213,13 +1215,17 @@ void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 	/*
 	 * Update circuit
 	 */
-	m_circuit -> update(dtime, *m_map, m_gamedef->ndef());
+	{
+		TimeTaker tt_circuit("Environment: Update circuit");
+		m_circuit -> update(dtime, *m_map, m_gamedef->ndef());
+	}
 
 	/*
 		Manage active block list
 	*/
 	if(m_blocks_added_last || m_active_blocks_management_interval.step(dtime, 2.0))
 	{
+		TimeTaker tt_manage_active_blocks("Environment: Manage active blocks.");
 		ScopeProfiler sp(g_profiler, "SEnv: manage act. block list avg /2s", SPT_AVG);
 		/*
 			Get player block positions
@@ -1322,6 +1328,7 @@ void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 	*/
 	if(m_active_block_timer_last || m_active_blocks_nodemetadata_interval.step(dtime, 1.0))
 	{
+		TimeTaker tt_active_blocks_mess("Environment: Active blocks timers");
 		//ScopeProfiler sp(g_profiler, "SEnv: mess in act. blocks avg /1s", SPT_AVG);
 
 		//float dtime = 1.0;
@@ -1463,8 +1470,7 @@ void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 		Step active objects
 	*/
 	{
-		//ScopeProfiler sp(g_profiler, "SEnv: step act. objs avg", SPT_AVG);
-		//TimeTaker timer("Step active objects");
+		TimeTaker tt_step_active_objects("Environment: Step active objects");
 
 		g_profiler->avg("SEnv: num of objects", m_active_objects.size());
 
@@ -1525,7 +1531,7 @@ void ServerEnvironment::step(float dtime, float uptime, int max_cycle_ms)
 	*/
 	if(m_object_management_interval.step(dtime, 0.5))
 	{
-		//ScopeProfiler sp(g_profiler, "SEnv: remove removed objs avg /.5s", SPT_AVG);
+		TimeTaker tt_remove_objects("Environment: Remove removed objects");
 		/*
 			Remove objects that satisfy (m_removed && m_known_by_count==0)
 		*/
