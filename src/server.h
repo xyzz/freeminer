@@ -37,6 +37,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "util/thread.h"
 #include "environment.h"
 #include "clientiface.h"
+#include "nested_profiler.h"
 #include <string>
 #include <list>
 #include <map>
@@ -346,6 +347,8 @@ public:
 			u8* ser_vers, u16* prot_vers, u8* major, u8* minor, u8* patch,
 			std::string* vers_string);
 
+	NestedProfiler* getProfiler();
+
 private:
 
 	friend class EmergeThread;
@@ -627,6 +630,8 @@ private:
 
 	std::map<v3s16, MapBlock*> m_modified_blocks;
 	std::map<v3s16, MapBlock*> m_lighting_modified_blocks;
+
+	NestedProfiler m_profiler;
 };
 
 /*

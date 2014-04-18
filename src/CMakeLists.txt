@@ -434,6 +434,7 @@ set(common_SRCS
 	gettext.cpp
 	httpfetch.cpp
 	fmbitset.cpp
+	nested_profiler.cpp
 	${JTHREAD_SRCS}
 	${common_SCRIPT_SRCS}
 	${UTIL_SRCS}

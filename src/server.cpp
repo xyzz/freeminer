@@ -109,16 +109,20 @@ void * ServerThread::Thread()
 	while(!StopRequested())
 	{
 		try{
-			//TimeTaker timer("AsyncRunStep() + Receive()");
+			{
+				NestedTimeTaker tt_async_run_step(getProfiler(), "Server: AsyncRunStep()");
+				m_server->AsyncRunStep();
+			}
 
-			m_server->AsyncRunStep();
-
-			// Loop used only when 100% cpu load or on old slow hardware.
-			// usually only one packet recieved here
-			u32 end_ms = porting::getTimeMs() + u32(1000 * dedicated_server_step);
-			for (u16 i = 0; i < 1000; ++i)
-				if (!m_server->Receive() || porting::getTimeMs() > end_ms)
-					break;
+			{
+				NestedTimeTaker tt_server_receive(getProfiler(), "Server: Receive()");
+				// Loop used only when 100% cpu load or on old slow hardware.
+				// usually only one packet recieved here
+				u32 end_ms = porting::getTimeMs() + u32(1000 * dedicated_server_step);
+				for (u16 i = 0; i < 1000; ++i)
+					if (!m_server->Receive() || porting::getTimeMs() > end_ms)
+						break;
+			}
 		}
 		catch(con::NoIncomingDataException &e)
 		{
@@ -5227,4 +5231,6 @@ void dedicated_server_loop(Server &server, bool &kill)
 	}
 }
 
-
+NestedProfiler* Server::getProfiler() {
+	return &m_profiler;
+}
