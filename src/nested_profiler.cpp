@@ -5,68 +5,59 @@
 #include "porting.h"
 
 NestedProfiler::NestedProfiler():
-	m_depth(0),
-	m_last_timetaker(NULL)
+	m_tree_pointer(-1)
 {
 }
 
-int NestedProfiler::getDepth() {
-	return m_depth;
+void NestedProfiler::newTimeTaker(const std::string &name) {
+	TimeTakerLeaf leaf;
+	leaf.parent = m_tree_pointer;
+	leaf.name = name;
+	int new_pointer = m_tree.size();
+	m_tree.push_back(leaf);
+	if (m_tree_pointer != -1)
+		m_tree[m_tree_pointer].children.push_back(new_pointer);
+	m_tree_pointer = new_pointer;
 }
 
-void NestedProfiler::newTimeTaker(NestedTimeTaker *timetaker) {
-	if (m_last_timetaker && !m_last_timetaker->isHeaderPrinted()) {
-		m_last_timetaker->printHeader();
+void NestedProfiler::dropTimeTaker(uint32_t time_passed) {
+	m_tree[m_tree_pointer].time_passed = time_passed;
+	m_tree_pointer = m_tree[m_tree_pointer].parent;
+	if (m_tree_pointer == -1) {
+		outputProfile(0, 0);
+		m_tree.clear();
 	}
-	m_last_timetaker = timetaker;
-	++m_depth;
 }
 
-void NestedProfiler::dropTimeTaker() {
-	--m_depth;
-	m_last_timetaker = m_last_timetaker->getParent();
+void NestedProfiler::printAlignment(int depth) {
+	for (int i = 0; i < depth; ++i)
+		std::cout << "|";
 }
 
-NestedTimeTaker* NestedProfiler::getLastTimeTaker() {
-	return m_last_timetaker;
+void NestedProfiler::outputProfile(int current, int depth) {
+	const TimeTakerLeaf &leaf = m_tree[current];
+	if (leaf.time_passed < PROFILER_TIME_THRESHOLD)
+		return;
+	if (!leaf.children.empty()) {
+		printAlignment(depth);
+		std::cout << "/ " << leaf.name << std::endl;
+		for (auto x : leaf.children)
+			outputProfile(x, depth + 1);
+		printAlignment(depth);
+		std::cout << "\\ [" << leaf.time_passed << "] " << leaf.name << std::endl;
+	} else {
+		printAlignment(depth - 1);
+		std::cout << "+ [" << leaf.time_passed << "] " << leaf.name << std::endl;
+	}
 }
 
 NestedTimeTaker::NestedTimeTaker(NestedProfiler *profiler, std::string name):
 	m_profiler(profiler),
-	m_parent(m_profiler->getLastTimeTaker()),
-	m_name(std::move(name)),
-	m_header_printed(false),
 	m_time_start(porting::getTimeMs())
 {
-	m_profiler->newTimeTaker(this);
-}
-
-void NestedTimeTaker::printAlign() {
-	for (int i = 0; i < m_profiler->getDepth() - 1; ++i)
-		std::cout << "| ";
-}
-
-void NestedTimeTaker::printHeader() {
-	printAlign();
-	std::cout << "/ " << m_name << std::endl;
-	m_header_printed = true;
-}
-
-NestedTimeTaker* NestedTimeTaker::getParent() {
-	return m_parent;
-}
-
-bool NestedTimeTaker::isHeaderPrinted() {
-	return m_header_printed;
+	m_profiler->newTimeTaker(name);
 }
 
 NestedTimeTaker::~NestedTimeTaker() {
-	uint32_t passed = getTimeMs() - m_time_start;
-	printAlign();
-	if (m_header_printed) {
-		std::cout << "\\ [" << passed << "] " << m_name << std::endl;
-	} else {
-		std::cout << "[" << passed << "] + " << m_name << std::endl;
-	}
-	m_profiler->dropTimeTaker();
+	m_profiler->dropTimeTaker(porting::getTimeMs() - m_time_start);
 }

@@ -109,7 +109,6 @@ void * ServerThread::Thread()
 	while(!StopRequested())
 	{
 		try{
-			std::cout << "--------------------------------------------------------------------------------" << std::endl;
 			{
 				NestedTimeTaker tt_async_run_step(m_server->getProfiler(), "Server: AsyncRunStep()");
 				m_server->AsyncRunStep();

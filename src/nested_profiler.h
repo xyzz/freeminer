@@ -2,34 +2,38 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
+
+const uint32_t PROFILER_TIME_THRESHOLD = 50;
 
 class NestedTimeTaker;
+
+struct TimeTakerLeaf {
+	int parent;
+	std::string name;
+	uint32_t time_passed;
+	std::vector<int> children;
+};
 
 class NestedProfiler {
 public:
 	NestedProfiler();
-	int getDepth();
-	NestedTimeTaker* getLastTimeTaker();
-	void newTimeTaker(NestedTimeTaker *timetaker);
-	void dropTimeTaker();
+	/* Adds new NestedTimeTaker to the tree. */ 
+	void newTimeTaker(const std::string &name);
+	/* Should be called by ~NestedTimeTaker, moves pointer up the tree. */
+	void dropTimeTaker(uint32_t time_passed);
 private:
-	int m_depth;
-	NestedTimeTaker *m_last_timetaker;
+	void outputProfile(int current, int depth);
+	void printAlignment(int depth);
+	int m_tree_pointer;
+	std::vector<TimeTakerLeaf> m_tree;
 };
 
 class NestedTimeTaker {
 public:
 	NestedTimeTaker(NestedProfiler *profiler, std::string name);
 	~NestedTimeTaker();
-	void printHeader();
-	void printFooter();
-	void printAlign();
-	bool isHeaderPrinted();
-	NestedTimeTaker *getParent();
 private:
 	NestedProfiler *m_profiler;
-	NestedTimeTaker *m_parent;
-	std::string m_name;
-	bool m_header_printed;
 	uint32_t m_time_start;
 };
