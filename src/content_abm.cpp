@@ -22,7 +22,8 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "content_abm.h"
 
-#include "environment.h"
+#include "server/activeblockmodifier.h"
+#include "server/serverenvironment.h"
 #include "gamedef.h"
 #include "nodedef.h"
 #include "content_sao.h"

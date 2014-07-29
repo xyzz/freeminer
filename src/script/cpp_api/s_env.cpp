@@ -24,7 +24,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "cpp_api/s_internal.h"
 #include "common/c_converter.h"
 #include "log.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "mapgen.h"
 #include "lua_api/l_env.h"
 #include "server.h"

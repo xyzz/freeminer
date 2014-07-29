@@ -26,7 +26,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "common/c_content.h"
 #include "nodedef.h"
 #include "server.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "util/pointedthing.h"
 
 

@@ -22,7 +22,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "content_sao.h"
 #include "collision.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "settings.h"
 #include "main.h" // For g_profiler
 #include "profiler.h"

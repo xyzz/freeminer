@@ -39,7 +39,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "cavegen.h"
 #include "treegen.h"
 #include "mapgen_v6.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 
 FlagDesc flagdesc_mapgen_v6[] = {
 	{"jungles",    MGV6_JUNGLES},

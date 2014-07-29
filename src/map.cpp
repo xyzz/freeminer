@@ -39,7 +39,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "util/directiontables.h"
 #include "util/mathconstants.h"
 #include "rollback_interface.h"
-#include "environment.h"
+// #include "environment.h"
 #include "emerge.h"
 #include "mapgen_v6.h"
 #include "biome.h"

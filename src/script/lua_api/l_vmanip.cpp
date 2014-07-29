@@ -25,7 +25,6 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "lua_api/l_internal.h"
 #include "common/c_converter.h"
 #include "emerge.h"
-#include "environment.h"
 #include "map.h"
 #include "server.h"
 #include "mapgen.h"

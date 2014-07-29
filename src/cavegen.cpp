@@ -27,7 +27,8 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "mapgen_v7.h"
 #include "cavegen.h"
 #include "emerge.h"
-#include "environment.h"
+// #include "environment.h"
+#include "server/serverenvironment.h"
 
 NoiseParams nparams_caveliquids(0, 1, v3f(150.0, 150.0, 150.0), 776, 3, 0.6);
 

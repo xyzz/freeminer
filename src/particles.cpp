@@ -31,7 +31,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include "util/numeric.h"
 #include "light.h"
-#include "environment.h"
+// #include "environment.h"
 #include "clientmap.h"
 #include "mapnode.h"
 

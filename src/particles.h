@@ -29,7 +29,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "irrlichttypes_extrabloated.h"
 #include "tile.h"
 #include "localplayer.h"
-#include "environment.h"
+// #include "environment.h"
 
 class Particle : public scene::ISceneNode
 {

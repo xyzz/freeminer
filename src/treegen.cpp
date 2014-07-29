@@ -27,7 +27,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "util/numeric.h"
 #include "util/mathconstants.h"
 #include "map.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "nodedef.h"
 #include "treegen.h"
 

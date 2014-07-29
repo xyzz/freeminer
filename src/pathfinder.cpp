@@ -21,7 +21,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "pathfinder.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "map.h"
 #include "log.h"
 

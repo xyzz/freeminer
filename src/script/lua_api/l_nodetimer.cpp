@@ -22,7 +22,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "lua_api/l_nodetimer.h"
 #include "lua_api/l_internal.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "map.h"
 
 

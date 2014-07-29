@@ -24,7 +24,9 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #define CLIENT_HEADER
 
 #include "connection.h"
-#include "environment.h"
+// #include "environment.h"
+#include "mapnode.h"
+#include "client/clientenvironment.h"
 #include "irrlichttypes_extrabloated.h"
 #include "jthread/jmutex.h"
 #include <ostream>

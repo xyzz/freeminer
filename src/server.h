@@ -35,7 +35,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "rollback_interface.h" // Needed for rollbackRevertActions()
 #include "util/numeric.h"
 #include "util/thread.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "clientiface.h"
 #include <string>
 #include <list>

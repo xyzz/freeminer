@@ -26,7 +26,10 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "nodedef.h"
 #include "gamedef.h"
 #include "log.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
+#ifndef SERVER
+#include "client/clientenvironment.h"
+#endif
 #include "serverobject.h"
 #include <vector>
 #include <set>

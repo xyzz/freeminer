@@ -40,7 +40,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "biome.h"
 #include "mapgen_v7.h"
 #include "mapgen_indev.h" //farscale
-#include "environment.h"
+#include "server/serverenvironment.h"
 
 
 FlagDesc flagdesc_mapgen_v7[] = {

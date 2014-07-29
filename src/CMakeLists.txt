@@ -519,7 +519,15 @@ set(common_SRCS
 	light.cpp
 	filesys.cpp
 	connection.cpp
-	environment.cpp
+	common/environment.cpp
+	server/serverenvironment.cpp
+	server/abmhandler.cpp
+	server/abmhandler.h
+	server/abmwithstate.cpp
+	server/abmwithstate.h
+	server/activeblocklist.cpp
+	server/activeblocklist.h
+	server/activeblockmodifier.cpp
 	server.cpp
 	clientiface.cpp
 	socket.cpp
@@ -611,6 +619,7 @@ set(minetest_SRCS
 	${minetest_SCRIPT_SRCS}
 	intlGUIEditBox.cpp
 	FMStaticText.cpp
+	client/clientenvironment.cpp
 )
 
 list(SORT minetest_SRCS)

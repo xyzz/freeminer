@@ -22,7 +22,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "inventorymanager.h"
 #include "log.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "scripting_game.h"
 #include "serverobject.h"
 #include "main.h"  // for g_settings

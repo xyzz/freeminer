@@ -17,7 +17,7 @@
 
 #include "lua_api/l_internal.h"
 #include "lua_api/l_key_value_storage.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "key_value_storage.h"
 
 #define GET_ENV_PTR ServerEnvironment* env =                                   \

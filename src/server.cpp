@@ -26,7 +26,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 #include "clientserver.h"
 #include "ban.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "map.h"
 #include "jthread/jmutexautolock.h"
 #include "main.h"

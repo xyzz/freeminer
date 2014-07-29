@@ -24,7 +24,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #define L_ENV_H_
 
 #include "lua_api/l_base.h"
-#include "environment.h"
+#include "server/activeblockmodifier.h"
 
 class ModApiEnvMod : public ModApiBase {
 private:

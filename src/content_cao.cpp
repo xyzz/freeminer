@@ -22,7 +22,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "content_cao.h"
 #include "tile.h"
-#include "environment.h"
+#include "common/environment.h"
 #include "collision.h"
 #include "settings.h"
 #include <ICameraSceneNode.h>

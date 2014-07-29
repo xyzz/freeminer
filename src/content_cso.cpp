@@ -23,7 +23,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "content_cso.h"
 #include <IBillboardSceneNode.h>
 #include "tile.h"
-#include "environment.h"
+#include "client/clientenvironment.h"
 #include "gamedef.h"
 #include "log.h"
 #include "map.h"

@@ -27,7 +27,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include <queue>
 #include "jthread/jevent.h"
 #include "map.h"
-#include "environment.h"
+// #include "environment.h"
 #include "util/container.h"
 #include "util/thread.h"
 #include "main.h"

@@ -29,7 +29,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "common/c_converter.h"
 #include "common/c_content.h"
 #include "scripting_game.h"
-#include "environment.h"
+#include "server/serverenvironment.h"
 #include "server.h"
 #include "nodedef.h"
 #include "daynightratio.h"
