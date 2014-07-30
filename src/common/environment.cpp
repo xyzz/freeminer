@@ -20,34 +20,12 @@ You should have received a copy of the GNU General Public License
 along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "environment.h"
-#include "filesys.h"
-#include "porting.h"
-#include "collision.h"
-#include "content_mapnode.h"
-#include "mapblock.h"
-#include "serverobject.h"
-#include "content_sao.h"
+#include "common/environment.h"
+
+#include "player.h"
+#include "main.h"
 #include "settings.h"
-#include "log.h"
-#include "profiler.h"
-#include "scripting_game.h"
-#include "nodedef.h"
-#include "nodemetadata.h"
-#include "main.h" // For g_settings, g_profiler
-#include "gamedef.h"
-#ifndef SERVER
-#include "clientmap.h"
-#include "localplayer.h"
-#include "event.h"
-#endif
 #include "daynightratio.h"
-#include "map.h"
-#include "emerge.h"
-#include "util/serialize.h"
-#include "fmbitset.h"
-#include "circuit.h"
-#include "key_value_storage.h"
 
 #define PP(x) "("<<(x).X<<","<<(x).Y<<","<<(x).Z<<")"
 
@@ -64,11 +42,8 @@ Environment::Environment():
 Environment::~Environment()
 {
 	// Deallocate players
-	for(std::list<Player*>::iterator i = m_players.begin();
-			i != m_players.end(); ++i)
-	{
-		delete (*i);
-	}
+	for (auto player : m_players)
+		delete player;
 }
 
 void Environment::addPlayer(Player *player)
@@ -90,49 +65,19 @@ void Environment::addPlayer(Player *player)
 
 Player * Environment::getPlayer(u16 peer_id)
 {
-	for(std::list<Player*>::iterator i = m_players.begin();
-			i != m_players.end(); ++i)
-	{
-		Player *player = *i;
+	for(auto player : m_players)
 		if(player->peer_id == peer_id)
 			return player;
-	}
 	return NULL;
 }
 
 Player * Environment::getPlayer(const std::string &name)
 {
-	for(auto &player : m_players) {
+	for(auto player : m_players) {
  		if(player->getName() == name)
 			return player;
 	}
 	return NULL;
-}
-
-std::list<Player*> Environment::getPlayers()
-{
-	return m_players;
-}
-
-std::list<Player*> Environment::getPlayers(bool ignore_disconnected)
-{
-	std::list<Player*> newlist;
-	for(std::list<Player*>::iterator
-			i = m_players.begin();
-			i != m_players.end(); ++i)
-	{
-		Player *player = *i;
-
-		if(ignore_disconnected)
-		{
-			// Ignore disconnected players
-			if(player->peer_id == 0)
-				continue;
-		}
-
-		newlist.push_back(player);
-	}
-	return newlist;
 }
 
 u32 Environment::getDayNightRatio()

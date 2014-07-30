@@ -28,6 +28,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "map.h"
 #include "server.h"
 #include "mapgen.h"
+#include "mapblock.h"
 
 // garbage collector
 int LuaVoxelManip::gc_object(lua_State *L)

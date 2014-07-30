@@ -1,13 +1,19 @@
 #pragma once
 
 #include <list>
+#include <string>
 
 #include "common/environment.h"
 #include "server/activeblocklist.h"
 #include "server/abmwithstate.h"
-
+#include "activeobject.h"
+#include "util/numeric.h"
 
 class ABMHandler;
+class GameScripting;
+class KeyValueStorage;
+class ServerActiveObject;
+
 /*
 	The server-side environment.
 

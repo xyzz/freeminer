@@ -2,6 +2,7 @@
 
 #include "clientobject.h"
 #include "common/environment.h"
+#include "util/numeric.h"
 
 class ClientSimpleObject;
 class ClientMap;

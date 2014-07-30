@@ -20,8 +20,14 @@ You should have received a copy of the GNU General Public License
 along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ENVIRONMENT_HEADER
-#define ENVIRONMENT_HEADER
+#pragma once
+
+#include <list>
+
+#include "irrlichttypes.h"
+#include "map.h"
+
+class Player;
 
 /*
 	This class is the game's environment.
@@ -32,30 +38,6 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 	- The current time in the game
 	- etc.
 */
-
-#include <set>
-#include <list>
-#include <map>
-#include "irr_v3d.h"
-#include "activeobject.h"
-#include "util/numeric.h"
-#include "mapnode.h"
-#include "mapblock.h"
-#include "connection.h"
-#include "fmbitset.h"
-#include "util/lock.h"
-
-class ServerEnvironment;
-class ActiveBlockModifier;
-class ServerActiveObject;
-class ITextureSource;
-class IGameDef;
-class Map;
-class ServerMap;
-class GameScripting;
-class Player;
-class Circuit;
-class KeyValueStorage;
 
 class Environment
 {
@@ -79,8 +61,6 @@ public:
 	//void removePlayer(const std::string &name);
 	Player * getPlayer(u16 peer_id);
 	Player * getPlayer(const std::string &name);
-	std::list<Player*> getPlayers();
-	std::list<Player*> getPlayers(bool ignore_disconnected);
 	
 	u32 getDayNightRatio();
 
@@ -130,6 +110,3 @@ private:
 	locker m_lock;
 
 };
-
-#endif
-

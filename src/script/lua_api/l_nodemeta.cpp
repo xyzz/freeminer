@@ -28,7 +28,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "server/serverenvironment.h"
 #include "map.h"
 #include "nodemetadata.h"
-
+#include "mapblock.h"
 
 
 /*

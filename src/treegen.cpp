@@ -30,7 +30,7 @@ along with Freeminer.  If not, see <http://www.gnu.org/licenses/>.
 #include "server/serverenvironment.h"
 #include "nodedef.h"
 #include "treegen.h"
-
+#include "mapblock.h"
 #include "log.h"
 
 namespace treegen
