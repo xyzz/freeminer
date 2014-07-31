@@ -930,14 +930,16 @@ bool nodePlacementPrediction(Client &client,
 		try{
 			LocalPlayer* player = client.getEnv().getLocalPlayer();
 
+			core::aabbox3df collisionbox = player->m_collisionbox;
+			collisionbox.MinEdge += player->getPosition() - BS / 2;
+			collisionbox.MaxEdge += player->getPosition() + BS / 2;
+
 			// Dont place node when player would be inside new node
 			// NOTE: This is to be eventually implemented by a mod as client-side Lua
 			if (!nodedef->get(n).walkable ||
 				(client.checkPrivilege("noclip") && g_settings->getBool("noclip")) ||
 				(nodedef->get(n).walkable &&
-				neighbourpos != player->getStandingNodePos() + v3s16(0,1,0) &&
-				neighbourpos != player->getStandingNodePos() + v3s16(0,2,0))) {
-
+				!collisionbox.isPointInside(intToFloat(neighbourpos, BS)))) {
 					// This triggers the required mesh update too
 					client.addNode(p, n);
 					return true;
